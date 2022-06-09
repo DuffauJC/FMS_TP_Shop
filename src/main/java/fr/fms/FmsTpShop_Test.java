@@ -43,10 +43,10 @@ public class FmsTpShop_Test implements CommandLineRunner {
 //		articleRepository.save(new Article("S22", "Samsung", 850, smartphone));
 //		articleRepository.save(new Article("Iphone45", "Xiaomi", 8450, smartphone));
 		
-	  for (Article article : articleRepository.findAll()) {
-		  System.out.println(article);
-	  
-		  } 
+//	  for (Article article : articleRepository.findAll()) {
+//		  System.out.println(article);
+//	  
+//		  } 
 
 	}
 

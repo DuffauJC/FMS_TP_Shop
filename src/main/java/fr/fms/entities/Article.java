@@ -35,7 +35,7 @@ public class Article implements Serializable{
 	 * @param brand
 	 * @param unitaryPrice
 	 */
-	public Article(Long id, String description, String brand, double unitaryPrice,Category category) {
+	public Article(Long id,String brand,String description, double unitaryPrice,Category category) {
 
 		setId(id);
 		setDescription(description);
@@ -51,7 +51,7 @@ public class Article implements Serializable{
 	 * @param brand
 	 * @param unitaryPrice
 	 */
-	public Article(String description, String brand, double unitaryPrice,Category category) {
+	public Article(String brand, String description,  double unitaryPrice,Category category) {
 
 		setDescription(description);
 		setBrand(brand);
