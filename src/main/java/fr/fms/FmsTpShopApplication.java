@@ -67,6 +67,15 @@ public class FmsTpShopApplication implements CommandLineRunner {
 		System.out.print("6.Voir les articles par category - ");
 		System.out.print("7.Sortir \n");
 		System.out.println("----------------------------");
+		System.out.print("1.Voir les articles - ");
+		System.out.print("2.Voir un  article - ");
+		System.out.print("3.Ajouter un article - ");
+
+		System.out.print("4.Modifier un article - ");
+		System.out.print("5.Supprimer un article - ");
+		System.out.print("6.Voir les articles par category - ");
+		System.out.print("7.Sortir \n");
+		System.out.println("----------------------------");
 	}
 
 	/**
@@ -109,7 +118,7 @@ public class FmsTpShopApplication implements CommandLineRunner {
 					deleteItem();
 					break;
 				case 6: // show items by category
-
+					showAllItemsByCategory();
 					break;
 
 				case 7: // Exit account
@@ -177,7 +186,45 @@ public class FmsTpShopApplication implements CommandLineRunner {
 		System.out.println("---------------------------------------------------------------------------------");
 	}
 
+/////////
+	public void deleteItem() {
+		showAllItems();
+
+		System.out.println("Type the id.");
+		while (!scan.hasNextLong()) {
+			System.out.println("The entered value is incorrect, enter a new entry.");
+			scan.next();
+		}
+		Long index = scan.nextLong();
+		boolean ok = shopJob.deleteItem(index);
+		if (ok) {
+			System.out.println("Article delete");
+		}
+	}
+
 /////////	
+	public void showAllItemsByCategory() {
+		showAllCategory();
+		System.out.println("Type the id.");
+		while (!scan.hasNextLong()) {
+			System.out.println("The entered value is incorrect, enter a new entry.");
+			scan.next();
+		}
+		Long index = scan.nextLong();
+		List<Article> art = shopJob.readAllItemsByCategory(index);
+		System.out.println("List of articles on category.\n");
+		System.out.println("--------------------------------------------------------------------------------------------------------");
+		System.out.printf("| %-15s | %-14s | %-30s | %-10s | %-20s |%n", "ID", "BRAND", "DESCRIPTION", "PRICE", "CATEGORY");
+		System.out.println("|-----------------|----------------|--------------------------------------------------------------------|");
+
+		for (int i = 0; i < art.size(); i++) {
+			System.out.printf("| %-15s | %-14s | %-30s | %-10s | %-20s |%n", art.get(i).getId(), art.get(i).getBrand(),
+					art.get(i).getDescription(), art.get(i).getUnitaryPrice(),art.get(i).getCategory().getName());
+		}
+		System.out.println("--------------------------------------------------------------------------------------------------------");
+	}
+/////////	
+
 	public void addItem() {
 
 		int rep = 1;
@@ -318,21 +365,6 @@ public class FmsTpShopApplication implements CommandLineRunner {
 			default:
 				System.out.println("Wrong entry, your choice: " + rep + " does not exist in the menu");
 			}
-		}
-	}
-
-	public void deleteItem() {
-		showAllItems();
-
-		System.out.println("Type the id.");
-		while (!scan.hasNextLong()) {
-			System.out.println("The entered value is incorrect, enter a new entry.");
-			scan.next();
-		}
-		Long index = scan.nextLong();
-		boolean ok = shopJob.deleteItem(index);
-		if (ok) {
-			System.out.println("Article delete");
 		}
 	}
 

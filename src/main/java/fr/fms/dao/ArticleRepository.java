@@ -17,11 +17,8 @@ public interface ArticleRepository extends JpaRepository<Article,Long> {
 
 	public Optional<Article> findById(Long Id);
 	
+	public List<Article> findByCategoryId(Long categoryId);
 	
-	public default Article getArticleById(Long Id)   
-	{  
-	return findById(Id).get();  
-	}  
 	
 	public default void update(Article article, Long Id)   
 	{  

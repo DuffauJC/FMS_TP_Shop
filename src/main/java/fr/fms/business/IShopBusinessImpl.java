@@ -81,8 +81,10 @@ public class IShopBusinessImpl implements IShopBusiness {
 	}
 
 	@Override
-	public void readAllItemsByCategory(Long id) {
+	public List<Article> readAllItemsByCategory(Long id) {
 		// TODO Auto-generated method stub
+		return this.articleRepository.findByCategoryId(id);
+		
 
 	}
 

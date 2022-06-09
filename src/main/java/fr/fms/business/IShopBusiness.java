@@ -27,7 +27,7 @@ public interface IShopBusiness {
 
 	public List<Article> readAllItems(); // retourne la liste des articles de la bdd
 
-	public void readAllItemsByCategory(Long id); // retourne la liste des articles d'une catégorie
+	public List<Article> readAllItemsByCategory(Long id); // retourne la liste des articles d'une catégorie
 	
 	
 	
