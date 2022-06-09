@@ -55,27 +55,23 @@ public class FmsTpShopApplication implements CommandLineRunner {
 	 * menu poster
 	 */
 	public static void showMenu() {
-		System.out.println("----------------------------");
+
 		System.out.println("Welcome, what do you want to do ?");
-
+		System.out.println("*******ARTICLES*******");
 		System.out.print("1.Voir les articles - ");
 		System.out.print("2.Voir un  article - ");
 		System.out.print("3.Ajouter un article - ");
-
 		System.out.print("4.Modifier un article - ");
 		System.out.print("5.Supprimer un article - ");
-		System.out.print("6.Voir les articles par category - ");
-		System.out.print("7.Sortir \n");
-		System.out.println("----------------------------");
-		System.out.print("1.Voir les articles - ");
-		System.out.print("2.Voir un  article - ");
-		System.out.print("3.Ajouter un article - ");
-
-		System.out.print("4.Modifier un article - ");
-		System.out.print("5.Supprimer un article - ");
-		System.out.print("6.Voir les articles par category - ");
-		System.out.print("7.Sortir \n");
-		System.out.println("----------------------------");
+		System.out.print("6.Voir les articles par category -\n ");
+		
+		System.out.println("*******CATEGORY*******");
+		System.out.print("7.Voir les catégories - ");
+		System.out.print("8.Voir une categorie - ");
+		System.out.print("9.Ajouter une catégorie - ");
+		System.out.print("10.Modifier une catégorie - ");
+		System.out.print("11.Supprimer une catégorie - ");
+		System.out.print("12.Sortir \n");
 	}
 
 	/**
@@ -89,7 +85,7 @@ public class FmsTpShopApplication implements CommandLineRunner {
 		int action = 0;
 		Long index;
 
-		while (action != 7) {
+		while (action != 12) {
 			try {
 
 				// showMenu();
@@ -120,8 +116,28 @@ public class FmsTpShopApplication implements CommandLineRunner {
 				case 6: // show items by category
 					showAllItemsByCategory();
 					break;
+//////////////////////////////////////
+				case 7: // show all category
+					showAllCategory();
+					showMenu();
+					break;
 
-				case 7: // Exit account
+				case 8: // show item by id
+					// showCategoryById();
+					// showMenu();
+					break;
+
+				case 9: // add item to bdd
+					// addCategory();
+					break;
+
+				case 10: // update item on bdd
+					// updateCategory();
+					break;
+				case 11: // delete item on bdd
+					// deleteCategory();
+					break;
+				case 12: // Exit account
 					System.out.println("Exit shop.");
 					break;
 
@@ -213,15 +229,19 @@ public class FmsTpShopApplication implements CommandLineRunner {
 		Long index = scan.nextLong();
 		List<Article> art = shopJob.readAllItemsByCategory(index);
 		System.out.println("List of articles on category.\n");
-		System.out.println("--------------------------------------------------------------------------------------------------------");
-		System.out.printf("| %-15s | %-14s | %-30s | %-10s | %-20s |%n", "ID", "BRAND", "DESCRIPTION", "PRICE", "CATEGORY");
-		System.out.println("|-----------------|----------------|--------------------------------------------------------------------|");
+		System.out.println(
+				"--------------------------------------------------------------------------------------------------------");
+		System.out.printf("| %-15s | %-14s | %-30s | %-10s | %-20s |%n", "ID", "BRAND", "DESCRIPTION", "PRICE",
+				"CATEGORY");
+		System.out.println(
+				"|-----------------|----------------|--------------------------------------------------------------------|");
 
 		for (int i = 0; i < art.size(); i++) {
 			System.out.printf("| %-15s | %-14s | %-30s | %-10s | %-20s |%n", art.get(i).getId(), art.get(i).getBrand(),
-					art.get(i).getDescription(), art.get(i).getUnitaryPrice(),art.get(i).getCategory().getName());
+					art.get(i).getDescription(), art.get(i).getUnitaryPrice(), art.get(i).getCategory().getName());
 		}
-		System.out.println("--------------------------------------------------------------------------------------------------------");
+		System.out.println(
+				"--------------------------------------------------------------------------------------------------------");
 	}
 /////////	
 
