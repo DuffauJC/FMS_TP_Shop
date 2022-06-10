@@ -28,21 +28,14 @@ public class FmsTpShopApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-
-		// shopJob = new IShopBusinessImpl();
 		welcome();
-
 		while (true) {
-
 			showMenu();
 			mainFunction();
-
 		}
 	}
 
-	/**
-	 * welcome message poster
-	 */
+//////
 	private static void welcome() {
 		System.out.println();
 		System.out.println("************************************");
@@ -51,9 +44,7 @@ public class FmsTpShopApplication implements CommandLineRunner {
 		System.out.println();
 	}
 
-	/**
-	 * menu poster
-	 */
+///////
 	public static void showMenu() {
 
 		System.out.println("Welcome, what do you want to do ?");
@@ -74,12 +65,7 @@ public class FmsTpShopApplication implements CommandLineRunner {
 		System.out.print("12.Sortir \n");
 	}
 
-	/**
-	 * principal function
-	 * 
-	 * @param user
-	 * @param scan
-	 */
+///////
 	public void mainFunction() {
 
 		int action = 0;
@@ -87,8 +73,6 @@ public class FmsTpShopApplication implements CommandLineRunner {
 
 		while (action != 12) {
 			try {
-
-				// showMenu();
 
 				action = scan.nextInt();
 
@@ -116,7 +100,7 @@ public class FmsTpShopApplication implements CommandLineRunner {
 				case 6: // show items by category
 					showAllItemsByCategory();
 					break;
-//////////////////////////////////////
+					/////****Category****//////
 				case 7: // show all category
 					showAllCategory();
 					showMenu();
@@ -129,13 +113,16 @@ public class FmsTpShopApplication implements CommandLineRunner {
 
 				case 9: // add item to bdd
 					addCategory();
+					showMenu();
 					break;
 
 				case 10: // update item on bdd
-					// updateCategory();
+					updateCategory();
+					showMenu();
 					break;
 				case 11: // delete item on bdd
-					// deleteCategory();
+					 deleteCategory();
+					 showMenu();
 					break;
 				case 12: // Exit account
 					System.out.println("Exit shop.");
@@ -143,7 +130,6 @@ public class FmsTpShopApplication implements CommandLineRunner {
 
 				default:
 					System.out.println(" Wrong entry, your choice: " + action + " does not exist in the menu");
-
 				}
 
 			} catch (Exception e) {
@@ -229,6 +215,22 @@ public class FmsTpShopApplication implements CommandLineRunner {
 		}
 		Long index = scan.nextLong();
 		boolean ok = shopJob.deleteItem(index);
+		if (ok) {
+			System.out.println("Article delete");
+		}
+	}
+
+/////////
+	public void deleteCategory() {
+		showAllCategory();
+
+		System.out.println("Type the id.");
+		while (!scan.hasNextLong()) {
+			System.out.println("The entered value is incorrect, enter a new entry.");
+			scan.next();
+		}
+		Long index = scan.nextLong();
+		boolean ok = shopJob.deleteCategory(index);
 		if (ok) {
 			System.out.println("Article delete");
 		}
@@ -442,4 +444,82 @@ public class FmsTpShopApplication implements CommandLineRunner {
 		}
 	}
 
+//////////
+	public void updateCategory() {
+
+		int rep = 1;
+
+		while (rep != 2) {
+
+			System.out.println("1 : To update category.");
+			System.out.println("2 : Leave.");
+
+			while (!scan.hasNextInt()) {
+				System.out.println("The entered value is incorrect, enter a new entry.");
+				scan.next();
+			}
+			rep = scan.nextInt();
+
+			switch (rep) {
+			case 1: // Update item
+
+				showAllCategory();
+				System.out.println("Type the id.");
+				Long index = scan.nextLong();
+				Category cat = shopJob.readCategory(index);
+
+				/////////////////////////////////
+
+				int rep2 = 1;
+
+				while (rep2 != 3) {
+
+					System.out.println("1 : To update name.");
+					System.out.println("2 : To update description.");
+					System.out.println("3 : Leave.");
+
+					while (!scan.hasNextInt()) {
+						System.out.println("The entered value is incorrect, enter a new entry.");
+						scan.next();
+					}
+					rep2 = scan.nextInt();
+
+					switch (rep2) {
+					case 1: // Update brand
+
+						System.out.println("Type name.");
+						String name = scan.next();
+						cat.setName(name);
+						break;
+
+					case 2: // Update description
+						System.out.println("Type description.");
+						scan.nextLine();
+						String desc = scan.nextLine();
+						cat.setDescription(desc);
+						break;
+					case 3: // Exit
+						System.out.println("Exit.");
+						break;
+					default:
+						System.out.println("Wrong entry, your choice: " + rep + " does not exist in the menu");
+					}
+				}
+				////////////////////////////////////
+				boolean ok = shopJob.updateCategory(cat, cat.getId());
+				if (ok) {
+					System.out.println("Categorie modifiée");
+				}
+				break;
+
+			case 2: // Exit
+				System.out.println("Exit.");
+				showMenu();
+				break;
+
+			default:
+				System.out.println("Wrong entry, your choice: " + rep + " does not exist in the menu");
+			}
+		}
+	}
 }

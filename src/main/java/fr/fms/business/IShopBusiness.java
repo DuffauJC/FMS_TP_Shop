@@ -14,14 +14,14 @@ import fr.fms.entities.Category;
  *
  */
 public interface IShopBusiness {
-	
+
 	//// article
 
 	public void addItem(Article article); // ajoute un article en bdd
 
 	public Article readItem(Long id); // retourne un article depuis la bdd
 
-	public boolean updateItem(Article article,Long id); // met à jour un article dans la bdd
+	public boolean updateItem(Article article, Long id); // met à jour un article dans la bdd
 
 	public boolean deleteItem(Long id); // supprime un article de la bdd
 
@@ -30,12 +30,16 @@ public interface IShopBusiness {
 	public List<Article> readAllItemsByCategory(Long id); // retourne la liste des articles d'une catégorie
 	
 	
-	
-	
+
 	////// category
-	public void addCategorie(Category category); // ajoute un article en bdd
-	public Category readCategory(Long id); // retourne un article depuis la bdd
+	public void addCategorie(Category category); // ajoute une categorie en bdd
+
+	public Category readCategory(Long id); // retourne une categorie depuis la bdd
+
+	public boolean updateCategory(Category category, Long id); // met à jour une categorie dans la bdd
+
+	public boolean deleteCategory(Long id); // supprime une categorie de la bdd
+
 	public List<Category> readAllCategories(); // retourne la liste des category de la bdd
-	
 
 }

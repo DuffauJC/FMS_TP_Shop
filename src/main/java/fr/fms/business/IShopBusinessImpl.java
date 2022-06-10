@@ -4,8 +4,6 @@
 package fr.fms.business;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -86,10 +84,7 @@ public class IShopBusinessImpl implements IShopBusiness {
 		}else {
 			return this.itemsToBdd;
 		}
-		// TODO Auto-generated method stub
 		
-		
-
 	}
 
 	@Override
@@ -113,6 +108,28 @@ public class IShopBusinessImpl implements IShopBusiness {
 	public void addCategorie(Category category) {
 		this.categoryRepository.save(category);
 		
+	}
+
+	@Override
+	public boolean updateCategory(Category category, Long id) {
+		Category cat = this.readCategory(id);
+		if (cat != null) {
+			this.categoryRepository.update(category,id);
+			return true;
+		} else {
+			throw new RuntimeException("Category inexistante dans la bdd!");
+		}
+	}
+
+	@Override
+	public boolean deleteCategory(Long id) {
+		Category cat = this.readCategory(id);
+		if (cat != null) {
+			this.categoryRepository.delete(cat);
+			return true;
+		} else {
+			throw new RuntimeException("Categorie inexistante dans la bdd!");
+		}
 	}
 
 }
