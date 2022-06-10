@@ -33,6 +33,7 @@ public interface IShopBusiness {
 	
 	
 	////// category
+	public void addCategorie(Category category); // ajoute un article en bdd
 	public Category readCategory(Long id); // retourne un article depuis la bdd
 	public List<Category> readAllCategories(); // retourne la liste des category de la bdd
 	

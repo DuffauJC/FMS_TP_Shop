@@ -64,7 +64,7 @@ public class FmsTpShopApplication implements CommandLineRunner {
 		System.out.print("4.Modifier un article - ");
 		System.out.print("5.Supprimer un article - ");
 		System.out.print("6.Voir les articles par category -\n ");
-		
+
 		System.out.println("*******CATEGORY*******");
 		System.out.print("7.Voir les catégories - ");
 		System.out.print("8.Voir une categorie - ");
@@ -123,12 +123,12 @@ public class FmsTpShopApplication implements CommandLineRunner {
 					break;
 
 				case 8: // show item by id
-					// showCategoryById();
-					// showMenu();
+					showCategoryById();
+					showMenu();
 					break;
 
 				case 9: // add item to bdd
-					// addCategory();
+					addCategory();
 					break;
 
 				case 10: // update item on bdd
@@ -200,6 +200,22 @@ public class FmsTpShopApplication implements CommandLineRunner {
 		System.out.printf("| %-15s | %-14s | %-30s | %-10s |%n", art.getId(), art.getBrand(), art.getDescription(),
 				art.getUnitaryPrice());
 		System.out.println("---------------------------------------------------------------------------------");
+	}
+
+/////////////
+	public void showCategoryById() {
+		System.out.println("Type the id.");
+		while (!scan.hasNextLong()) {
+			System.out.println("The entered value is incorrect, enter a new entry.");
+			scan.next();
+		}
+		Long index = scan.nextLong();
+		Category cat = shopJob.readCategory(index);
+		System.out.println("---------------------------------------------------------------------");
+		System.out.printf("| %-15s | %-14s | %-30s |%n", "ID", "NOM", "DESCRIPTION");
+		System.out.println("|-----------------|----------------|--------------------------------|");
+		System.out.printf("| %-15s | %-14s | %-30s |%n", cat.getId(), cat.getName(), cat.getDescription());
+		System.out.println("---------------------------------------------------------------------");
 	}
 
 /////////
@@ -382,6 +398,44 @@ public class FmsTpShopApplication implements CommandLineRunner {
 				showMenu();
 				break;
 
+			default:
+				System.out.println("Wrong entry, your choice: " + rep + " does not exist in the menu");
+			}
+		}
+	}
+/////////	
+
+	public void addCategory() {
+
+		int rep = 1;
+
+		while (rep != 2) {
+
+			System.out.println("1 : To create category.");
+			System.out.println("2 : Leave.");
+
+			while (!scan.hasNextInt()) {
+				System.out.println("The entered value is incorrect, enter a new entry.");
+				scan.next();
+			}
+			rep = scan.nextInt();
+
+			switch (rep) {
+			case 1: // Create category
+				System.out.println("Type name.");
+				String name = scan.next();
+
+				System.out.println("Type description.");
+				scan.nextLine();
+				String desc = scan.nextLine();
+
+				shopJob.addCategorie(new Category(name, desc));
+				System.out.println("Catégorie ajoutée.");
+				break;
+			case 2: // Exit
+				System.out.println("Exit.");
+				showMenu();
+				break;
 			default:
 				System.out.println("Wrong entry, your choice: " + rep + " does not exist in the menu");
 			}

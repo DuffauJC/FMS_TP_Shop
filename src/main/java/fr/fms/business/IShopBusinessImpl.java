@@ -3,8 +3,6 @@
  */
 package fr.fms.business;
 
-import java.util.ArrayList;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,7 +22,7 @@ import fr.fms.entities.Category;
 @Service
 public class IShopBusinessImpl implements IShopBusiness {
 
-	private ArrayList<Article> itemsToBdd = null;
+	private List<Article> itemsToBdd = null;
 	@Autowired
 	private CategoryRepository categoryRepository;
 	@Autowired
@@ -82,8 +80,14 @@ public class IShopBusinessImpl implements IShopBusiness {
 
 	@Override
 	public List<Article> readAllItemsByCategory(Long id) {
+		this.itemsToBdd=this.articleRepository.findByCategoryId(id);
+		if (this.itemsToBdd.isEmpty()) {
+			throw new RuntimeException("Aucun articles dans cette catégorie !");
+		}else {
+			return this.itemsToBdd;
+		}
 		// TODO Auto-generated method stub
-		return this.articleRepository.findByCategoryId(id);
+		
 		
 
 	}
@@ -100,8 +104,14 @@ public class IShopBusinessImpl implements IShopBusiness {
 		if (cat !=null) {
 			return cat;
 		}else {
-			throw new RuntimeException("Article inexistant dans la bdd!");
+			throw new RuntimeException("Category inexistante dans la bdd!");
 		}
+		
+	}
+
+	@Override
+	public void addCategorie(Category category) {
+		this.categoryRepository.save(category);
 		
 	}
 
