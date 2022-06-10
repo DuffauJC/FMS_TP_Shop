@@ -1,17 +1,25 @@
 package fr.fms.serviceWeb;
 
-import org.springframework.stereotype.Controller;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import fr.fms.dao.ArticleRepository;
+import fr.fms.entities.Article;
+
+@RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class ArticleController {
 
-	@GetMapping("/greeting")
-	public String greeting() {
-		
-		return "greeting";
+	@Autowired
+	private ArticleRepository articleRepository;
+
+	@GetMapping("/articles")
+	public List<Article> getArticles() {
+		return (List<Article>) articleRepository.findAll();
 	}
-	
-	
+
 }
