@@ -4,7 +4,11 @@
 package fr.fms.business;
 
 import java.util.List;
+
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import fr.fms.entities.Article;
 import fr.fms.entities.Category;
@@ -13,7 +17,14 @@ import fr.fms.entities.Category;
  * @author Stagiaires08P
  *
  */
-public interface IShopBusiness {
+public interface IShopBusiness<T> {
+	
+	
+//	public List<T> readAll()throws Exception;
+//	public void addOne(T t);
+//	public boolean updateOne(T t,Long id);
+//	public boolean deleteOne(T t,Long id) throws Exception;
+//	public Optional<T> getOneById(Long id);
 
 	//// article
 
@@ -25,8 +36,10 @@ public interface IShopBusiness {
 
 	public boolean deleteItem(Long id); // supprime un article de la bdd
 
-	public List<Article> readAllItems(); // retourne la liste des articles de la bdd
-
+	public List<Article> readAllItems()throws Exception; // retourne la liste des articles de la bdd
+	
+	Page<Article> getArticlesPages(Pageable pageable) throws Exception;
+	
 	public List<Article> readAllItemsByCategory(Long id); // retourne la liste des articles d'une catégorie
 	
 	

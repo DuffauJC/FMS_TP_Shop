@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import fr.fms.business.IShopBusinessImpl;
 import fr.fms.entities.Article;
@@ -73,6 +75,7 @@ public class FmsTpShopApplication implements CommandLineRunner {
 				switch (action) {
 				case 1: // show all items
 					showAllItems();
+					//displayArticlesPaginate(scan);
 					showMenu();
 					break;
 
@@ -133,11 +136,86 @@ public class FmsTpShopApplication implements CommandLineRunner {
 		}
 
 	}
+//////////////
+	private void menuPaginate() {
+		System.out.println("EXIT    pour sortir de la pagination");
+		System.out.println("PREV    pour afficher la page précédente");
+		System.out.println("NEXT    pour afficher la page suivante");
+		System.out.println("PAGE 7  pour afficher 7 articles par page (par défaut c'est 5)");
+	}
+/////////////
+	private void displayArticlesPaginate(Scanner scan) {
+		int currentPage = 0;
+		int nbPage = 5;
+		boolean flag = true;
+		
+		menuPaginate();
+		
+		while(flag) {
+			try {
+				Page<Article> art = shopJob.getArticlesPages(PageRequest.of(currentPage, nbPage));						
+				if(art.getTotalPages() != 0) {
+					//displayTitles();
+					
+						
+						System.out.println("List of articles.\n");
+					System.out.println("---------------------------------------------------------------------------------");
+					System.out.printf("| %-15s | %-14s | %-30s | %-10s |%n", "ID", "BRAND", "DESCRIPTION", "PRICE");
+					System.out.println("|-----------------|----------------|---------------------------------------------|");
+
+					art.stream().forEach(a -> 
+						System.out.printf("| %-15s | %-14s | %-30s | %-10s |%n", a.getId(), a.getBrand(),
+								a.getDescription(), a.getUnitaryPrice()));
+					
+					System.out.println("---------------------------------------------------------------------------------");
+						
+				
+					//articles.stream().forEach(a -> System.out.println(a));
+					System.out.print("\n PREV [");
+					for(int i=0 ; i<art.getTotalPages() ; i++) {
+						if(i == currentPage)	System.out.print(" {" + i + "} ");
+						else System.out.print(" "+i+" ");
+					}
+					System.out.println("] NEXT");
+					System.out.println("Tapez 0 pour Afficher le menu de pagination \n");
+					
+					String action = scan.next();			
+					if(action.equalsIgnoreCase("PREV")) {
+						if(currentPage > 0) currentPage--; 
+					}
+					else if	(action.equalsIgnoreCase("NEXT")) {
+						if(currentPage < art.getTotalPages()-1)	currentPage++;		
+					}
+					else if(action.equalsIgnoreCase("EXIT")) {
+						flag = false;
+					}
+					else if(action.equalsIgnoreCase("PAGE")) {
+						System.out.println("saisissez le nombre d'articles par page :");
+						nbPage = scan.nextInt();
+						currentPage = 0;
+					}
+					else if(action.equalsIgnoreCase("0")) {
+						menuPaginate();
+					}
+				}
+				else {
+					System.out.println("TABLE VIDE EN BDD !");
+					flag = false;
+				}
+			}
+			catch(Exception e) {
+				System.out.println("Erreur de communication avec la base : " + e.getMessage());
+				flag = false;
+			}
+		}
+	}
 
 //////////////
 	public void showAllItems() {
-		List<Article> art = shopJob.readAllItems();
-		System.out.println("List of articles.\n");
+		List<Article> art;
+		try {
+			art = shopJob.readAllItems();
+			System.out.println("List of articles.\n");
 		System.out.println("---------------------------------------------------------------------------------");
 		System.out.printf("| %-15s | %-14s | %-30s | %-10s |%n", "ID", "BRAND", "DESCRIPTION", "PRICE");
 		System.out.println("|-----------------|----------------|---------------------------------------------|");
@@ -147,6 +225,12 @@ public class FmsTpShopApplication implements CommandLineRunner {
 					art.get(i).getDescription(), art.get(i).getUnitaryPrice());
 		}
 		System.out.println("---------------------------------------------------------------------------------");
+			
+		} catch (Exception e) {
+			System.out.println("Erreur de bdd" +e.getMessage());
+			
+		}
+		
 	}
 
 /////////////

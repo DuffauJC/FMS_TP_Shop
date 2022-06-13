@@ -5,7 +5,11 @@ package fr.fms.business;
 
 import java.util.List;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import fr.fms.dao.ArticleRepository;
@@ -32,10 +36,9 @@ public class IShopBusinessImpl implements IShopBusiness {
 
 	@Override
 	public void addItem(Article article) {
+		// TODO Auto-generated method stub
 		this.articleRepository.save(article);
-
 	}
-
 	@Override
 	public Article readItem(Long id) {
 		Article art = this.articleRepository.findById(id).get();
@@ -44,11 +47,10 @@ public class IShopBusinessImpl implements IShopBusiness {
 		} else {
 			throw new RuntimeException("Article inexistant dans la bdd !");
 		}
-
 	}
 
 	@Override
-	public boolean updateItem(Article article,Long id) {
+	public boolean updateItem(Article article, Long id) {
 		Article art = this.readItem(id);
 		if (art != null) {
 			this.articleRepository.save(article);
@@ -57,7 +59,6 @@ public class IShopBusinessImpl implements IShopBusiness {
 			throw new RuntimeException("Article inexistant dans la bdd!");
 		}
 	}
-
 	@Override
 	public boolean deleteItem(Long id) {
 		Article art = this.readItem(id);
@@ -71,11 +72,15 @@ public class IShopBusinessImpl implements IShopBusiness {
 	}
 
 	@Override
-	public List<Article> readAllItems() {
+	public List<Article> readAllItems()throws Exception {
 		// TODO Auto-generated method stub
 		return this.articleRepository.findAll();
 	}
-
+	
+	@Override
+	public Page<Article> getArticlesPages(Pageable pageable) throws Exception {
+		return articleRepository.findAll(pageable);
+	}
 	@Override
 	public List<Article> readAllItemsByCategory(Long id) {
 		this.itemsToBdd=this.articleRepository.findByCategoryId(id);
@@ -86,13 +91,16 @@ public class IShopBusinessImpl implements IShopBusiness {
 		}
 		
 	}
-
 	@Override
 	public List<Category> readAllCategories() {
 		// TODO Auto-generated method stub
 		return this.categoryRepository.findAll();
 	}
-
+	@Override
+	public void addCategorie(Category category) {
+		this.categoryRepository.save(category);
+		
+	}
 	@Override
 	public Category readCategory(Long id) {
 		Category cat = this.categoryRepository.findById(id).get();
@@ -104,14 +112,9 @@ public class IShopBusinessImpl implements IShopBusiness {
 		
 	}
 
-	@Override
-	public void addCategorie(Category category) {
-		this.categoryRepository.save(category);
-		
-	}
 
 	@Override
-	public boolean updateCategory(Category category, Long id) {
+	public boolean updateCategory(Category category,Long id) {
 		Category cat = this.readCategory(id);
 		if (cat != null) {
 			this.categoryRepository.save(category);
