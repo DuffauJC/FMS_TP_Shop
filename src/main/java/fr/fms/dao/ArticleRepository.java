@@ -19,11 +19,5 @@ public interface ArticleRepository extends JpaRepository<Article,Long> {
 	
 	public List<Article> findByCategoryId(Long categoryId);
 	
-	
-	public default void update(Article article, Long Id)   
-	{  
-	save(article);  
-	}  
-	
 	public void deleteById(Long Id);
 }

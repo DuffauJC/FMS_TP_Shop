@@ -50,20 +50,13 @@ public class FmsTpShopApplication implements CommandLineRunner {
 
 		System.out.println("Welcome, what do you want to do ?");
 		System.out.println("*******ARTICLES*******");
-		System.out.print("1.Voir les articles - ");
-		System.out.print("2.Voir un  article - ");
-		System.out.print("3.Ajouter un article - ");
-		System.out.print("4.Modifier un article - ");
-		System.out.print("5.Supprimer un article - ");
-		System.out.print("6.Voir les articles par category -\n ");
+		System.out.print("1.Voir les articles - " + "2.Voir un  article - " + "3.Ajouter un article - "
+				+ "4.Modifier un article - " + "5.Supprimer un article - " + "6.Voir les articles par category -\n");
 
 		System.out.println("*******CATEGORY*******");
-		System.out.print("7.Voir les catégories - ");
-		System.out.print("8.Voir une categorie - ");
-		System.out.print("9.Ajouter une catégorie - ");
-		System.out.print("10.Modifier une catégorie - ");
-		System.out.print("11.Supprimer une catégorie - ");
-		System.out.print("12.Sortir \n");
+		System.out.print("7.Voir les catégories - " + "8.Voir une categorie - " + "9.Ajouter une catégorie - "
+				+ "10.Modifier une catégorie - " + "11.Supprimer une catégorie - " + "12.Sortir \n");
+
 	}
 
 ///////
@@ -101,7 +94,7 @@ public class FmsTpShopApplication implements CommandLineRunner {
 				case 6: // show items by category
 					showAllItemsByCategory();
 					break;
-					/////****Category****//////
+				///// ****Category****//////
 				case 7: // show all category
 					showAllCategory();
 					showMenu();
@@ -122,8 +115,8 @@ public class FmsTpShopApplication implements CommandLineRunner {
 					showMenu();
 					break;
 				case 11: // delete item on bdd
-					 deleteCategory();
-					 showMenu();
+					deleteCategory();
+					showMenu();
 					break;
 				case 12: // Exit account
 					System.out.println("Exit shop.");
@@ -297,7 +290,7 @@ public class FmsTpShopApplication implements CommandLineRunner {
 				Category cat = shopJob.readCategory(id);
 
 				shopJob.addItem(new Article(brand, desc, price, cat));
-
+				System.out.println("Article ajouté");
 				break;
 
 			case 2: // Exit

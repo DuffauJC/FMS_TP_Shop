@@ -7,10 +7,8 @@ import org.springframework.stereotype.Repository;
 import fr.fms.entities.Category;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category,Long> {
+	
 	public Optional<Category> findById(Long Id);
-	public default void update(Category category, Long Id)   
-	{  
-	save(category);  
-	} 
+	
 	public void deleteById(Long Id);
 }

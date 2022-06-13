@@ -51,7 +51,7 @@ public class IShopBusinessImpl implements IShopBusiness {
 	public boolean updateItem(Article article,Long id) {
 		Article art = this.readItem(id);
 		if (art != null) {
-			this.articleRepository.update(article,id);
+			this.articleRepository.save(article);
 			return true;
 		} else {
 			throw new RuntimeException("Article inexistant dans la bdd!");
@@ -114,7 +114,7 @@ public class IShopBusinessImpl implements IShopBusiness {
 	public boolean updateCategory(Category category, Long id) {
 		Category cat = this.readCategory(id);
 		if (cat != null) {
-			this.categoryRepository.update(category,id);
+			this.categoryRepository.save(category);
 			return true;
 		} else {
 			throw new RuntimeException("Category inexistante dans la bdd!");

@@ -28,7 +28,7 @@ public class FmsTpShop_Test implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
+//
 //		Category laptop = categoryRepository.save(new Category("Laptop","Ordinateur portable ou pas"));
 //		Category smartphone = categoryRepository.save(new Category("Smartphone","Pour faire plus qu'appeler"));
 //		Category mat_info = categoryRepository.save(new Category("Materiel info","Tout pour votre tour"));
