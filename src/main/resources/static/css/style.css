@@ -1,9 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 .container {
-    margin-top: 70px;
-}
-#H1{
-    color: red;
+    margin-top: 40px;
 }
 li {
     cursor: pointer;
@@ -44,13 +41,24 @@ li {
 }
 
 #header {
-    background-color: coral;
+    background-color: blueviolet;
     margin-bottom: 10px;
     position: sticky !important;
     top: 0px;
     z-index: 10;
 }
-
+#header li>a{
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+}
+#navTitle{
+    margin-left: 110px;
+    color: yellow;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 30px;
+}
 .logo {
     margin-right: 20px;
     margin-left: 20px;

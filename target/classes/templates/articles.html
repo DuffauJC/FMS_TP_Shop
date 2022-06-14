@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout.html}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes articles</title>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="container">
+            <div class="panel">
+                <div class="panel-heading bg-primary p-2">
+                    <h4 class="">Liste des articles</h4>
+                </div>
+                <div class="panel-body p-2">
+                    <form th:action="@{/index}" method="get">
+                        <label for="">Keyword</label>
+                        <input type="text" name="keyword" th:value="${keyword}">
+                        <button type="submit" class="btn btn-success">Search</button>
+                    </form>
+                    <table class="table">
+                        <tr>
+                            <th>Id</th>
+                            <th>Brand</th>
+                            <th>Description</th>
+                            <th>Prix</th>
+                        </tr>
+                        <tr th:each="a:${listArticle}">
+                            <td th:text="${a.id}"></td>
+                            <td th:text="${a.brand}"></td>
+                            <td th:text="${a.description}"></td>
+                            <td th:text="${a.unitaryPrice}"></td>
+                            <td>
+                                <a class="btn btn-danger"
+                                    th:href="@{/delete(id=${a.id}, page=${currentPage}, keyword=${keyword})}">Delete</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <ul class="nav nav-pills">
+                        <li class="nav-item" th:each="page,status:${pages}">
+                            <a th:class="${currentPage==status.index}?'nav-link active':'nav-link'"
+                                th:href="@{/index(page=${status.index},keyword=${keyword})}"
+                                th:text="${status.index}"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
