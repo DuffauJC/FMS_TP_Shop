@@ -24,25 +24,23 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="" class="control-label">Description : </label>
-                                    <input class="form-control" type="text" name="decription" id="">
+                                    <input class="form-control" type="text" name="description" id="">
                                 </div>
                                 <div class="form-group">
                                     <label for="" class="control-label">Unitary price : </label>
                                     <input class="form-control" type="text" name="unitaryPrice" id="">
                                 </div>
                                 <div class="form-group">
-                                    <label for="" class="control-label">Unitary price : </label>
-                                    <input class="form-control" type="text" name="unitaryPrice" id="">
-                                </div>
-                                <!-- <div class="form-group">
                                     <label for="Category" class="control-label">Category : </label>
-                                    <select name="Category" id="Category">
-                                        <option value="volvo">Volvo</option>
-                                        <option value="saab">Saab</option>
-                                        <option value="mercedes">Mercedes</option>
-                                        <option value="audi">Audi</option>
+                                    <select class="form-control" name="Category" id="Category" >
+                                        <ul th:each="c:${listCategories}">
+                                            <li>
+                                              <option th:value="${c.id}" th:text="${c.name}"></option>  
+                                            </li>
+                                        </ul>
+                                        
                                     </select>
-                                </div> -->
+                                </div>
                                 <button class="btn btn-primary" type="submit">Save</button>
                             </form>
                         </div>
