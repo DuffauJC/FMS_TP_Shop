@@ -2,11 +2,14 @@ package fr.fms.serviceWeb;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,16 +50,23 @@ public class ArticleController {
 
     // retourne formulaire ajout d'un article et retourne la liste des categories
     @GetMapping("/article")
-    public String article(Model model) {
+    public String article(Model model,Article article
+            
+    ) {
         List<Category> categories = categoryRepository.findAll();
         model.addAttribute("listCategories", categories);
+       // model.addAttribute("article",new Article());
         return "article";
     }
 
     // retourne formulaire ajout d'un article
     @PostMapping("/save")
-    public String save(Article article) {
+    public String save(Model model, @Valid Article article, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "article";
+        }
+
         articleRepository.save(article);
-        return "article";
+        return "redirect:/index";
     }
 }

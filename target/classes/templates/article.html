@@ -17,22 +17,24 @@
                     <div class="panel-heading">
                         <h4 class="bg-primary p-2">Saisir un article</h4>
                         <div class="panel-body">
-                            <form th:action="@{/save}" method="post">
+                            <form th:action="@{/save}" method="post" th:object="${article}">
                                 <div class="form-group">
                                     <label for="" class="control-label">Brand : </label>
-                                    <input class="form-control" type="text" name="brand" id="">
+                                    <input class="form-control" type="text" name="brand" th:value="${article.brand}">
                                 </div>
                                 <div class="form-group">
                                     <label for="" class="control-label">Description : </label>
-                                    <input class="form-control" type="text" name="description" id="">
+                                    <input class="form-control" type="text" name="description" th:value="${article.description}">
+                                    <span  th:errors="${article.description}"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="" class="control-label">Unitary price : </label>
-                                    <input class="form-control" type="text" name="unitaryPrice" id="">
+                                    <input class="form-control" type="text" name="unitaryPrice" th:value="${article.unitaryPrice}">
+                                    <span  th:errors="${article.unitaryPrice}"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="Category" class="control-label">Category : </label>
-                                    <select class="form-control" name="Category" id="Category" >
+                                    <select class="form-control" name="Category" >
                                         <ul th:each="c:${listCategories}">
                                             <li>
                                               <option th:value="${c.id}" th:text="${c.name}"></option>  
@@ -41,6 +43,7 @@
                                         
                                     </select>
                                 </div>
+                                
                                 <button class="btn btn-primary" type="submit">Save</button>
                             </form>
                         </div>
