@@ -26,8 +26,16 @@ public class ArticleController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    // affiche les articles sur la page articles depuis le lien index
+    @GetMapping("/home")
+    public String home() {
+        return "home";
+    }
     @GetMapping("/index")
+    public String index() {
+        return "index";
+    }
+    // affiche les articles sur la page articles depuis le lien index
+    @GetMapping("/articles")
     public String index(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "keyword", defaultValue = "") String kw) {
         Page<Article> articles = articleRepository.findByDescriptionContains(kw, PageRequest.of(page, 5));

@@ -17,7 +17,7 @@ public class RestArticleController {
 	@Autowired
 	private ArticleRepository articleRepository;
 
-	@GetMapping("/articles")
+	@GetMapping("/articlesRest")
 	public List<Article> getArticles() {
 		return (List<Article>) articleRepository.findAll();
 	}

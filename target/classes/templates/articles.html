@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{layout.html}">
+layout:decorate="~{index.html}">
 
 <head>
     <meta charset="UTF-8">
@@ -17,7 +17,7 @@ layout:decorate="~{layout.html}">
                     <h4 class="">Liste des articles</h4>
                 </div>
                 <div class="panel-body p-2">
-                    <form th:action="@{/index}" method="get">
+                    <form th:action="@{/articles}" method="get">
                         <label for="">Keyword</label>
                         <input type="text" name="keyword" th:value="${keyword}">
                         <button type="submit" class="btn btn-success">Search</button>
