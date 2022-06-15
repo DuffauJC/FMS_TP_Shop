@@ -14,14 +14,9 @@ layout:decorate="~{layout.html}">
         <div class="container">
             <div class="panel">
                 <div class="panel-heading bg-primary p-2">
-                    <h4 class="">Liste des articles</h4>
+                    <h4 class="">Liste des articles de la catégorie <span th:text="${catName}"></span></h4>
                 </div>
                 <div class="panel-body p-2">
-                    <form th:action="@{/index}" method="get">
-                        <label for="">Keyword</label>
-                        <input type="text" name="keyword" th:value="${keyword}">
-                        <button type="submit" class="btn btn-success">Search</button>
-                    </form>
                     <table class="table">
                         <tr>
                             <th>Id</th>
@@ -30,22 +25,18 @@ layout:decorate="~{layout.html}">
                             <th>Prix</th>
                             <th>Categorie</th>
                         </tr>
-                        <tr th:each="a:${listArticle}">
+                        <tr th:each="a:${listCategoryArticles}">
                             <td th:text="${a.id}"></td>
                             <td th:text="${a.brand}"></td>
                             <td th:text="${a.description}"></td>
                             <td th:text="${a.unitaryPrice}"></td>
                             <td th:text="${a.Category.name}"></td>
-                            <td>
-                                <a class="btn btn-danger"
-                                    th:href="@{/delete(id=${a.id}, page=${currentPage}, keyword=${keyword})}">Delete</a>
-                            </td>
                         </tr>
                     </table>
                     <ul class="nav nav-pills">
                         <li class="nav-item" th:each="page,status:${pages}">
                             <a th:class="${currentPage==status.index}?'nav-link active':'nav-link'"
-                                th:href="@{/index(page=${status.index},keyword=${keyword})}"
+                                th:href="@{/index(page=${status.index})}"
                                 th:text="${status.index}"></a>
                         </li>
                     </ul>

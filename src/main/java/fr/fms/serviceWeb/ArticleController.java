@@ -37,6 +37,7 @@ public class ArticleController {
         model.addAttribute("pages", new int[articles.getTotalPages()]);
         model.addAttribute("currentPage", page);
         model.addAttribute("keyword", kw);
+       
 
         return "articles";
     }
