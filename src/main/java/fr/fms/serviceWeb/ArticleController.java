@@ -88,7 +88,8 @@ public class ArticleController {
         model.addAttribute("listCategories", categories);
         model.addAttribute("article", art);
         model.addAttribute("catName", art.get().getCategory().getName());
-        System.out.println(art);
+        // System.out.println(art);
+        // System.out.println(art.get().getCategory().getName());
         return "editArticle";
     }
 
