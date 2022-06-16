@@ -59,11 +59,22 @@ li {
 }
 
 .welcome {
-    background-image: url("../img/open.jpg");
     max-width: 1800px;
-    /* max-height: 600px; */
+    display: flex;
+   
 }
-
+.homeImg{
+    max-width: 1400px;
+     max-height: 600px;
+    margin: auto;
+}
+.catName{
+    margin-left: 50px;
+    color: yellow;
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
+}
 #linkAdmin {
     font-weight: bold;
     font-style: italic;

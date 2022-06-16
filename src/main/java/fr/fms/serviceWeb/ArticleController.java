@@ -1,6 +1,7 @@
 package fr.fms.serviceWeb;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -46,7 +47,6 @@ public class ArticleController {
         model.addAttribute("currentPage", page);
         model.addAttribute("keyword", kw);
        
-
         return "articles";
     }
 
@@ -78,4 +78,19 @@ public class ArticleController {
         articleRepository.save(article);
         return "redirect:/index";
     }
+
+    @GetMapping("/editArticle")
+    public String editArticle(Model model, Long id, Article article,String catName) {
+
+        Optional<Article> art = articleRepository.findById(id);
+        List<Category> categories = categoryRepository.findAll();
+
+        model.addAttribute("listCategories", categories);
+        model.addAttribute("article", art);
+        model.addAttribute("catName", art.get().getCategory().getName());
+        System.out.println(art);
+        return "editArticle";
+    }
+
+    
 }

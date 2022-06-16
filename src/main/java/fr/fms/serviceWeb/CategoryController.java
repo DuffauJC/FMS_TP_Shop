@@ -27,6 +27,7 @@ public class CategoryController {
     // affiche les articles sur la page articles depuis le lien index
     @GetMapping("/categories")
     public String categories(Model model, @RequestParam(name = "page", defaultValue = "0") int page) {
+
         Page<Category> categories = categoryRepository.findAll(PageRequest.of(page, 5));
         model.addAttribute("listCategories", categories.getContent());
         model.addAttribute("pages", new int[categories.getTotalPages()]);
@@ -35,10 +36,16 @@ public class CategoryController {
     }
 
     @GetMapping("/categoryArticles")
-    public String categoryArticles(Model model, Article article, Category category, Long id) {
-        List<Article> articles = articleRepository.findByCategoryId(id);
+    public String categoryArticles(Model model, Article article, Category category, Long id,
+            @RequestParam(name = "page", defaultValue = "0") int page) {
+
+        Page<Article> articles = articleRepository.findByCategoryId(id, PageRequest.of(page, 5));
         Optional<Category> cat = categoryRepository.findById(id);
-        model.addAttribute("listCategoryArticles", articles);
+        List<Category> categories = categoryRepository.findAll();
+        
+        model.addAttribute("listCategoryArticles", articles.getContent());
+        model.addAttribute("listCategories", categories);
+        model.addAttribute("pages", new int[articles.getTotalPages()]);
         model.addAttribute("catName", cat.get().getName());
         return "articlesByCategory";
     }

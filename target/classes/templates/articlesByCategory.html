@@ -12,9 +12,14 @@ layout:decorate="~{index.html}">
 <body>
     <div layout:fragment="content">
         <div class="container">
+            <ul class="d-flex justify-content-between">
+                <a type="button" class="btn btn-outline-info" th:text="${c.name}" th:each="c:${listCategories}"
+                    th:href="@{/categoryArticles(id=${c.id})}"
+                    ></a>
+            </ul>
             <div class="panel">
                 <div class="panel-heading bg-primary p-2">
-                    <h4 class="">Liste des articles de la catégorie <span th:text="${catName}"></span></h4>
+                    <h4 class="">Liste des articles de la catégorie <span class="catName" th:text="${catName}"></span></h4>
                 </div>
                 <div class="panel-body p-2">
                     <table class="table">
@@ -23,14 +28,13 @@ layout:decorate="~{index.html}">
                             <th>Brand</th>
                             <th>Description</th>
                             <th>Prix</th>
-                            <th>Categorie</th>
                         </tr>
                         <tr th:each="a:${listCategoryArticles}">
                             <td th:text="${a.id}"></td>
                             <td th:text="${a.brand}"></td>
                             <td th:text="${a.description}"></td>
                             <td th:text="${a.unitaryPrice}"></td>
-                            <td th:text="${a.Category.name}"></td>
+                          
                         </tr>
                     </table>
                     <ul class="nav nav-pills">

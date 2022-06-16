@@ -22,4 +22,5 @@ public interface ArticleRepository extends JpaRepository<Article,Long> {
 	public void deleteById(Long Id);
 
 	Page<Article> findByDescriptionContains(String description, Pageable pageable);
+	Page<Article> findByCategoryId(Long categoryId, Pageable pageable);
 }

@@ -40,12 +40,15 @@ layout:decorate="~{index.html}">
                                 <a class="btn btn-danger"
                                     th:href="@{/delete(id=${a.id}, page=${currentPage}, keyword=${keyword})}">Delete</a>
                             </td>
+                            <td>
+                                <a class="btn btn-info" th:href="@{/editArticle(id=${a.id})}">Edit</a>
+                            </td>
                         </tr>
                     </table>
                     <ul class="nav nav-pills">
                         <li class="nav-item" th:each="page,status:${pages}">
                             <a th:class="${currentPage==status.index}?'nav-link active':'nav-link'"
-                                th:href="@{/index(page=${status.index},keyword=${keyword})}"
+                                th:href="@{/articles(page=${status.index},keyword=${keyword})}"
                                 th:text="${status.index}"></a>
                         </li>
                     </ul>
