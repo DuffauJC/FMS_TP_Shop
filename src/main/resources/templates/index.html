@@ -7,15 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}">
     <link rel="stylesheet" href="/css/style.css" th:href="@{css/style.css}">
+    <link rel="stylesheet"
+    th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.3.0/font-awesome-animation.min.css}"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.3.0/font-awesome-animation.min.css"
+        integrity="sha512-Po8rrCwchD03Wo+2ibHFielZ8luDAVoCyE9i6iFMPyn9+V1tIhGk5wl8iKC9/JfDah5Oe9nV8QzE8HHgjgzp3g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Welcome</title>
 </head>
 
 <body>
 
     <nav class="navbar navbar-expand-sm"id="header">
-        <a href="#" class="navbar-brand"id="navTitle">Mon super beau site</a>
+        <a th:href="@{/}" class="navbar-brand"id="navTitle">Mon super beau site</a>
         <ul class="navbar-nav">
-            <li><a th:href="@{/home}">Home</a></li>
             <li class="active"><a th:href="@{/articles}">Articles</a></li>
             <li><a th:href="@{/article}">Add article</a></li>
             <li><a th:href="@{/categories}">Category</a></li>

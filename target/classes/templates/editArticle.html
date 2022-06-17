@@ -17,7 +17,7 @@
                     <div class="panel-heading">
                         <h4 class="bg-primary p-2">Saisir un article</h4>
                         <div class="panel-body">
-                            <form th:action="@{/save}" method="post" th:object="${article}">
+                            <form th:object="${article}" th:action="@{/updateArticle(id=${idArticle})}" method="post" >
                                 <div class="form-group">
                                     <label for="" class="control-label">Brand : </label>
                                     <input class="form-control" type="text" name="brand" th:field="*{brand}">
@@ -37,10 +37,14 @@
                                 <div class="form-group">
                                     <label for="" class="control-label">Category : </label>
                                     <select class="form-control" name="Category">
-                                        
-                                        <option th:each="c:${listCategories}" th:text="${c.name}"
-                                         th:selected="${c.name.equals(catName)}"></option>
 
+                                        <option th:each="c:${listCategories}" th:text="${c.name}"
+                                        th:value="${c.id}"    th:selected="${c.name.equals(catName)}"></option>
+
+                                        <!-- <option th:each="c : ${listCategories}" th:value="${c.name = articleCategoryName}"
+                                            th:text="${c.name = articleCategoryName}"
+                                            th:selected="${c.name = articleCategoryName}">
+                                        </option> -->
                                     </select>
                                 </div>
 

@@ -37,6 +37,9 @@ layout:decorate="~{index.html}">
                             <td th:text="${a.unitaryPrice}"></td>
                             <td th:text="${a.Category.name}"></td>
                             <td>
+                                <a class="" href=""><img class="img_cart" th:src="@{/img/panier.png}" alt=""></a>
+                            </td>
+                            <td>
                                 <a class="btn btn-danger"
                                     th:href="@{/delete(id=${a.id}, page=${currentPage}, keyword=${keyword})}">Delete</a>
                             </td>

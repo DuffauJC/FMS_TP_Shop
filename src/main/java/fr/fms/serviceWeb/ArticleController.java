@@ -27,14 +27,16 @@ public class ArticleController {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @GetMapping("/")
+    public String accueil() {
+        return "home";
+    }
+
     @GetMapping("/home")
     public String home() {
         return "home";
     }
-    @GetMapping("/index")
-    public String index() {
-        return "index";
-    }
+
     // affiche les articles sur la page articles depuis le lien index
     @GetMapping("/articles")
     public String index(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
@@ -46,7 +48,7 @@ public class ArticleController {
         model.addAttribute("pages", new int[articles.getTotalPages()]);
         model.addAttribute("currentPage", page);
         model.addAttribute("keyword", kw);
-       
+
         return "articles";
     }
 
@@ -54,21 +56,21 @@ public class ArticleController {
     @GetMapping("/delete")
     public String delete(Long id, int page, String keyword) {
         articleRepository.deleteById(id);
-        return "redirect:/index?page=" + page + "&keyword=" + keyword;
+        return "redirect:/articles?page=" + page + "&keyword=" + keyword;
     }
 
     // retourne formulaire ajout d'un article et retourne la liste des categories
     @GetMapping("/article")
-    public String article(Model model,Article article
-            
+    public String article(Model model, Article article
+
     ) {
         List<Category> categories = categoryRepository.findAll();
         model.addAttribute("listCategories", categories);
-       // model.addAttribute("article",new Article());
+        // model.addAttribute("article",new Article());
         return "article";
     }
 
-    // retourne formulaire ajout d'un article
+    // ajoute en base et retourne la page articles
     @PostMapping("/save")
     public String save(Model model, @Valid Article article, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -76,11 +78,13 @@ public class ArticleController {
         }
 
         articleRepository.save(article);
-        return "redirect:/index";
+        return "redirect:/articles";
     }
 
+    // form edition article
     @GetMapping("/editArticle")
-    public String editArticle(Model model, Long id, Article article,String catName) {
+    public String editArticle(Model model, Long id, Article article, String catName
+    ) {
 
         Optional<Article> art = articleRepository.findById(id);
         List<Category> categories = categoryRepository.findAll();
@@ -88,10 +92,24 @@ public class ArticleController {
         model.addAttribute("listCategories", categories);
         model.addAttribute("article", art);
         model.addAttribute("catName", art.get().getCategory().getName());
-        // System.out.println(art);
-        // System.out.println(art.get().getCategory().getName());
+        model.addAttribute("idArticle", art.get().getId());
         return "editArticle";
     }
 
-    
+    // retourne formulaire ajout d'un article
+    @PostMapping("/updateArticle")
+    public String updateArticle(Model model, @Valid Article article, BindingResult bindingResult,
+            @RequestParam(value= "id")Long id) {
+        if (bindingResult.hasErrors()) {
+            return "editArticle";
+        }
+       
+        Optional<Article> art = articleRepository.findById(id);
+        Article a = art.get();
+        if (a != null) {
+            this.articleRepository.save(article);
+            return "redirect:/articles";
+        }
+        return "redirect:/articles";
+    }
 }
